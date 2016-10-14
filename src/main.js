@@ -9,9 +9,9 @@ selected.isSelected = true;
 
 var getDepthString = (depth) => {
     if (depth == 0) return '';
-    var string = '├';
-    for (var i = 0; i < depth; i++) {
-        string += '─';
+    var string = '├─';
+    for (var i = 1; i < depth; i++) {
+        string = '   ' + string;
     }
     return string + ' ';
 };
@@ -21,16 +21,22 @@ var getName = file => {
 };
 
 var draw = (file, depth) => {
-    console.log(getDepthString(depth) + getName(file));
+    var output = getDepthString(depth) + getName(file) + '\n';
     if(file.children) {
         depth++;
         file.children.forEach(child => {
-            draw(child, depth);
+            output += draw(child, depth);
         });
     }
+    return output;
 };
 
-draw(rootFile, 0);
+var redraw = function() {
+    vorpal.ui.redraw.clear();
+    vorpal.ui.redraw(draw(rootFile, 0));
+};
+
+redraw();
 
 var getCurrentBranch = function(file) {
     var openDir = file.children.find(child => child.children);
@@ -86,8 +92,7 @@ vorpal.on('keypress', function(keys) {
             selectParent();
         break;
     }
-    vorpal.ui.redraw.clear();
-    draw(rootFile, 0);
+    redraw();
 });
 
 vorpal
