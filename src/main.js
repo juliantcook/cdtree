@@ -16,13 +16,13 @@ var getDepthString = (depth) => {
     return string + ' ';
 };
 
-var getName = file => {
+var drawName = file => {
     var clcFunc = isDir(file) ? clc.cyan : clc;
     return file.isSelected ? clcFunc.black.bgYellow(file.name) : clcFunc(file.name);
 };
 
 var draw = (file, depth) => {
-    var output = getDepthString(depth) + getName(file) + '\n';
+    var output = getDepthString(depth) + drawName(file) + '\n';
     if(file.children) {
         depth++;
         file.children.forEach(child => {
