@@ -17,7 +17,8 @@ var getDepthString = (depth) => {
 };
 
 var getName = file => {
-    return file.isSelected ? clc.black.bgYellow(file.name) : file.name;
+    var clcFunc = isDir(file) ? clc.cyan : clc;
+    return file.isSelected ? clcFunc.black.bgYellow(file.name) : clcFunc(file.name);
 };
 
 var draw = (file, depth) => {
