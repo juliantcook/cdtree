@@ -53,10 +53,10 @@ var selectSibling = function(offset) {
     var idx = currentBranch.findIndex(child => child.isSelected);
     currentBranch[idx].isSelected = false;
     idx += offset;
-    if (idx < 0) {
-        idx = currentBranch.length - 1;
-    } else if (idx == currentBranch.length) {
-        idx = 0;
+    if (offset < 0) {
+        idx = Math.max(idx, 0);
+    } else {
+        idx = Math.min(idx, currentBranch.length - 1);
     }
     selected = currentBranch[idx];
     selected.isSelected = true;
