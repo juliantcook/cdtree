@@ -1,0 +1,20 @@
+{
+  "name": "cdtree",
+  "version": "0.0.1",
+  "description": "cd with a tree",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "cli",
+    "cd",
+    "tree"
+  ],
+  "author": "Julian Cook",
+  "license": "ISC",
+  "dependencies": {
+    "cli-color": "^1.1.0",
+    "vorpal": "^1.11.4"
+  }
+}
