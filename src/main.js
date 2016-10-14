@@ -49,6 +49,7 @@ var getCurrentBranch = function(file) {
 };
 
 var selectSibling = function(offset) {
+    if (!rootFile.children) return;
     var currentBranch = getCurrentBranch(rootFile);
     var idx = currentBranch.findIndex(child => child.isSelected);
     currentBranch[idx].isSelected = false;
