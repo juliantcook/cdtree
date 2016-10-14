@@ -97,6 +97,14 @@ vorpal.on('keypress', function(keys) {
     redraw();
 });
 
+var makeSelection = () => {
+    vorpal.ui.redraw.clear();
+    process.stdout.write(getPath(selected));
+    process.exit(0);
+};
+
+vorpal.on('client_prompt_submit', makeSelection)
+
 vorpal
     .delimiter('cdtree$')
     .show();
