@@ -17,7 +17,7 @@ var getDepthString = depth => {
 };
 
 var drawName = file => {
-    var clcFunc = file.isDir() ? clc.cyan : clc;
+    var clcFunc = file.isDir ? clc.cyan : clc;
     return file.isSelected ? clcFunc.black.bgYellow(file.name) : clcFunc(file.name);
 };
 
@@ -55,7 +55,7 @@ var selectSibling = offset => {
 };
 
 var selectChild = () => {
-    if(!selected.isDir()) return;
+    if(!selected.isDir) return;
     selected.loadChildren();
     selected.children[0].isSelected = true;
     selected.isSelected = false;

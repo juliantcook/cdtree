@@ -5,6 +5,7 @@ function File(name, parent) {
     this.isSelected = false;
     this.parent = parent;
     this.children;
+    this.isDir = fs.statSync(this.getPath()).isDirectory();
 }
 
 File.prototype.getPath = function() {
@@ -13,10 +14,6 @@ File.prototype.getPath = function() {
     } else {
         return this.name;
     }
-};
-
-File.prototype.isDir = function() {
-    return fs.statSync(this.getPath()).isDirectory();
 };
 
 File.prototype.loadChildren = function() {
