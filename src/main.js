@@ -39,27 +39,18 @@ var redraw = function() {
 
 redraw();
 
-var getCurrentBranch = function(file) {
-    var openDir = file.children.find(child => child.children);
-    if (!openDir) {
-        return file.children;
-    } else {
-        return getCurrentBranch(openDir);
-    }
-};
-
-var selectSibling = function(offset) {
-    if (!rootFile.children) return;
-    var currentBranch = getCurrentBranch(rootFile);
-    var idx = currentBranch.findIndex(child => child.isSelected);
-    currentBranch[idx].isSelected = false;
+var selectSibling = offset => {
+    if (!selected.parent) return;
+    var siblings = selected.parent.children;
+    var idx = siblings.findIndex(child => child.isSelected);
+    siblings[idx].isSelected = false;
     idx += offset;
     if (offset < 0) {
         idx = Math.max(idx, 0);
     } else {
-        idx = Math.min(idx, currentBranch.length - 1);
+        idx = Math.min(idx, siblings.length - 1);
     }
-    selected = currentBranch[idx];
+    selected = siblings[idx];
     selected.isSelected = true;
 };
 
