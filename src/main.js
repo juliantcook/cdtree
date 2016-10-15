@@ -7,7 +7,7 @@ rootFile.children = getChildren(rootFile);
 var selected = rootFile.children[0];
 selected.isSelected = true;
 
-var getDepthString = (depth) => {
+var getDepthString = depth => {
     if (depth == 0) return '';
     var string = '├─';
     for (var i = 1; i < depth; i++) {
@@ -32,7 +32,7 @@ var draw = (file, depth) => {
     return output;
 };
 
-var redraw = function() {
+var redraw = () => {
     vorpal.ui.redraw.clear();
     vorpal.ui.redraw(draw(rootFile, 0));
 };
@@ -54,7 +54,7 @@ var selectSibling = offset => {
     selected.isSelected = true;
 };
 
-var selectChild = function() {
+var selectChild = () => {
     if(!isDir(selected)) return;
     selected.children = getChildren(selected);
     selected.children[0].isSelected = true;
@@ -62,7 +62,7 @@ var selectChild = function() {
     selected = selected.children[0];
 };
 
-var selectParent = function() {
+var selectParent = () => {
     if (!selected.parent) return;
     selected.isSelected = false;
     selected.parent.isSelected = true;
@@ -94,7 +94,7 @@ var makeSelection = () => {
     process.exit(0);
 };
 
-vorpal.on('client_prompt_submit', makeSelection)
+vorpal.on('client_prompt_submit', makeSelection);
 
 vorpal
     .delimiter('cdtree$')
