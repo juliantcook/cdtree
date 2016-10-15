@@ -1,35 +1,9 @@
 const vorpal = require('vorpal')();
-const clc = require('cli-color');
 const File = require('./file');
+const draw = require('./draw-file-tree');
 
 var rootFile = new File('.');
 var selected = rootFile.selectChild();
-
-// TODO memoize
-var getDepthString = depth => {
-    if (depth == 0) return '';
-    var string = '├─';
-    for (var i = 1; i < depth; i++) {
-        string = '   ' + string;
-    }
-    return string + ' ';
-};
-
-var drawName = file => {
-    var clcFunc = file.isDir ? clc.cyan : clc;
-    return file.isSelected ? clcFunc.black.bgYellow(file.name) : clcFunc(file.name);
-};
-
-var draw = (file, depth) => {
-    var output = getDepthString(depth) + drawName(file) + '\n';
-    if(file.children) {
-        depth++;
-        file.children.forEach(child => {
-            output += draw(child, depth);
-        });
-    }
-    return output;
-};
 
 var redraw = () => {
     vorpal.ui.redraw.clear();
