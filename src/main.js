@@ -1,9 +1,9 @@
 const vorpal = require('vorpal')();
 const clc = require('cli-color');
-const fs = require('fs');
+const File = require('./file');
 
 var rootFile = new File('.');
-rootFile.children = getChildren(rootFile);
+rootFile.loadChildren();
 var selected = rootFile.children[0];
 selected.isSelected = true;
 
@@ -17,7 +17,7 @@ var getDepthString = depth => {
 };
 
 var drawName = file => {
-    var clcFunc = isDir(file) ? clc.cyan : clc;
+    var clcFunc = file.isDir() ? clc.cyan : clc;
     return file.isSelected ? clcFunc.black.bgYellow(file.name) : clcFunc(file.name);
 };
 
@@ -55,8 +55,8 @@ var selectSibling = offset => {
 };
 
 var selectChild = () => {
-    if(!isDir(selected)) return;
-    selected.children = getChildren(selected);
+    if(!selected.isDir()) return;
+    selected.loadChildren();
     selected.children[0].isSelected = true;
     selected.isSelected = false;
     selected = selected.children[0];
@@ -90,7 +90,7 @@ vorpal.on('keypress', function(keys) {
 
 var makeSelection = () => {
     vorpal.ui.redraw.clear();
-    process.stdout.write(getPath(selected));
+    process.stdout.write(selected.getPath());
     process.exit(0);
 };
 
@@ -99,27 +99,3 @@ vorpal.on('client_prompt_submit', makeSelection);
 vorpal
     .delimiter('cdtree$')
     .show();
-
-
-function getPath(file) {
-    if (file.parent) {
-        return getPath(file.parent) + '/' + file.name;
-    } else {
-        return file.name;
-    }
-}
-
-function isDir(file) {
-    return fs.statSync(getPath(file)).isDirectory();
-}
-
-function getChildren(file) {
-    return fs.readdirSync(getPath(file)).map(fileName => new File(fileName, file));
-}
-
-function File(name, parent) {
-    this.name = name;
-    this.isSelected = false;
-    this.parent = parent;
-    this.children;
-}
