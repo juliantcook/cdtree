@@ -1,6 +1,7 @@
 const vorpal = require('vorpal')();
 const File = require('./file');
 const draw = require('./draw-file-tree');
+const fs = require('fs');
 
 var rootFile = new File('.');
 var selected = rootFile.selectChild();
@@ -30,9 +31,13 @@ vorpal.on('keypress', function(keys) {
     redraw();
 });
 
+const outputSelection = selection => {
+    fs.writeFileSync('/tmp/cdtree_selection', selection);
+};
+
 var makeSelection = () => {
     vorpal.ui.redraw.clear();
-    process.stdout.write(selected.getPath());
+    outputSelection(selected.getPath());
     process.exit(0);
 };
 
