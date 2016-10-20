@@ -43,6 +43,4 @@ var makeSelection = () => {
 
 vorpal.on('client_prompt_submit', makeSelection);
 
-vorpal
-    .delimiter('cdtree$')
-    .show();
+vorpal.delimiter('').show();
