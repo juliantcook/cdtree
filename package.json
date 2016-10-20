@@ -2,6 +2,9 @@
   "name": "cdtree",
   "version": "0.0.1",
   "description": "cd with a tree",
+  "bin": {
+    "cdtree": "src/main.js"
+  },
   "main": "src/main.js",
   "scripts": {
     "test": "test"

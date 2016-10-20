@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const vorpal = require('vorpal')();
 const File = require('./file');
 const draw = require('./draw-file-tree');
