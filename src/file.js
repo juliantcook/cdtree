@@ -24,7 +24,7 @@ File.prototype.selectChild = function() {
     if (!this.isDir) return this;
     this.loadChildren();
     this.isSelected = false;
-    return this.children[0].select();
+    return (this.children.length ? this.children[0] : this).select();
 };
 
 File.prototype.selectParent = function() {
