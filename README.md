@@ -15,3 +15,7 @@ If tmux is installed:
 `./cdtree.tmux`
 
 And it will be bound to `T`.
+
+## Test
+
+`npm test`

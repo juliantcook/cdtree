@@ -7,7 +7,7 @@
   },
   "main": "src/main.js",
   "scripts": {
-    "test": "test"
+    "test": "./node_modules/jasmine/bin/jasmine.js spec/**.spec.js"
   },
   "keywords": [
     "cli",
@@ -19,5 +19,8 @@
   "dependencies": {
     "cli-color": "^1.1.0",
     "vorpal": "^1.11.4"
+  },
+  "devDependencies": {
+    "jasmine": "^3.3.0"
   }
 }
