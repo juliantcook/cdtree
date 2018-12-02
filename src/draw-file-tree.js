@@ -15,7 +15,7 @@ const drawName = file => {
     return file.isSelected ? clcFunc.black.bgYellow(file.name) : clcFunc(file.name);
 };
 
-const draw = (file, depth) => {
+const draw = (file, depth = 0) => {
     var output = drawDepth(depth) + drawName(file) + '\n';
     if(file.children) {
         depth++;

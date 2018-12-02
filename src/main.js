@@ -10,7 +10,7 @@ var selected = rootFile.selectChild();
 
 var redraw = () => {
     vorpal.ui.redraw.clear();
-    vorpal.ui.redraw(draw(rootFile, 0));
+    vorpal.ui.redraw(draw(rootFile));
 };
 
 redraw();
