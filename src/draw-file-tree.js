@@ -1,4 +1,4 @@
-const clc = require('cli-color');
+const colour = require('./colours');
 
 // TODO memoize
 const drawDepth = depth => {
@@ -11,8 +11,11 @@ const drawDepth = depth => {
 };
 
 const drawName = file => {
-    var clcFunc = file.isDir ? clc.cyan : clc;
-    return file.isSelected ? clcFunc.black.bgYellow(file.name) : clcFunc(file.name);
+    let colourFn = x => x;
+    if (file.isDir && file.isSelected) colourFn = colour.SELECTED_DIR;
+    else if (file.isDir) colourFn = colour.DIR;
+    else if (file.isSelected) colourFn = colour.SELECTED;
+    return colourFn(file.name);
 };
 
 const draw = (file, depth = 0) => {
